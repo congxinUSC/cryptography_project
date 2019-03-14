@@ -6,6 +6,7 @@ import random
 import sys
 
 
+VALID_KEY_LENGTH = {1024, 2048, 4096}
 DEFAULT_KEY_LENGTH = 2048
 FALSE_PRIME_TOLERANCE_POWER = -128
 PUBLIC_KEY = 65537
@@ -66,7 +67,11 @@ class GenKey(object):
             owner: owner's name of the key pair, it's hash value is also used
             as random seed.
             key_size: RSA key size in bits, have to be 1024, 2048 or 4096.
+
+        Raises: ValueError if key_size is invalid.
         """
+        if key_size not in VALID_KEY_LENGTH:
+            raise ValueError("Invalid key length.", key_size)
         self.owner = owner
         self.key_size = key_size
         self._random_source = random.SystemRandom(owner)
@@ -120,7 +125,7 @@ class GenKey(object):
         """
         # Step 0: input validation and short outs
         if tolerance_power >= 0:
-            raise ValueError("tolerance_power should be negative.",
+            raise ValueError("Tolerance power should be negative.",
                              tolerance_power)
         if n < 0:
             raise ValueError("Test target is not positive.", n)
@@ -155,8 +160,8 @@ class GenKey(object):
         return True
 
     def export_keys(self):
-        """Simply export public and private keys to <owner>.pub and <owner>.prv.
-        For simplicity we just use json format. (Warned you. It's not secure!!!)
+        """Export public and private keys to <owner>.pub and <owner>.prv.
+        File formats are described in docs.
         """
         with open("{}.pub".format(self.owner), "w") as public_key_fp:
             public_key = {"n": self.n, "e": self.e}
@@ -168,7 +173,7 @@ class GenKey(object):
 
 
 def main(argv):
-    """Creates a GenKey object and export the keys"""
+    """Creates a GenKey object and export the keys."""
     key_generator = GenKey(argv[1])
     key_generator.export_keys()
 
