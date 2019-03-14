@@ -1,9 +1,9 @@
 """This script generate RSA public and private keys. Running this script
 directly from shell should provide one argument <name>.
 """
-import sys
-import random
 import json
+import random
+import sys
 
 
 DEFAULT_KEY_LENGTH = 2048
@@ -70,10 +70,10 @@ class GenKey(object):
         self.owner = owner
         self.key_size = key_size
         self._random_source = random.SystemRandom(owner)
-        # use the practically recommended public key
+        # Use the practically recommended public key
         self.e = PUBLIC_KEY
 
-        # prime numbers p and q should be similar in size.
+        # Prime numbers p and q should be similar in size.
         self._p = 0
         while not self._miller_rabin(self._p) or (self._p-1) % self.e == 0:
             self._p = self._random_source.getrandbits(self.key_size // 2)
@@ -97,7 +97,7 @@ class GenKey(object):
         gcd, _ = extended_euclidean(self._p-1, self._q-1)
         self._carmichael = (self._p-1) * (self._q-1) // gcd
 
-        # Use extended Euclidean algorithm to obtain private key d
+        # Use extended Euclidean algorithm to obtain private key d.
         _, self.d = extended_euclidean(self._carmichael, self.e)
 
     def _miller_rabin(self,
@@ -118,7 +118,7 @@ class GenKey(object):
         Raises:
             ValueError when inputs are invalid.
         """
-        # step 0: input validation and short outs
+        # Step 0: input validation and short outs
         if tolerance_power >= 0:
             raise ValueError("tolerance_power should be negative.",
                              tolerance_power)
@@ -127,16 +127,16 @@ class GenKey(object):
         if n & 1 == 0:
             return False
 
-        # step 1: factor (n - 1) into 2^r * d where r and d are integers.
+        # Step 1: factor (n - 1) into 2^r * d where r and d are integers.
         d = n - 1
         r = 0
         while d & 1 == 0:
             r += 1
             d >>= 1
 
-        # step 2: run the witness loop that repeat at most k times.
+        # Step 2: run the witness loop that repeat at most k times.
         k = (-tolerance_power + 1) // 2
-        # instead of selecting random k distinct numbers from the range [2, n-1)
+        # Instead of selecting random k distinct numbers from the range [2, n-1)
         # we simply try k times for performance reasons
         for _ in range(k):
             a = self._random_source.randrange(2, n-1)
@@ -158,20 +158,20 @@ class GenKey(object):
         """Simply export public and private keys to <owner>.pub and <owner>.prv.
         For simplicity we just use json format. (Warned you. It's not secure!!!)
         """
-        with open("{}.pub".format(self.owner), "w") as public_key_file:
+        with open("{}.pub".format(self.owner), "w") as public_key_fp:
             public_key = {"n": self.n, "e": self.e}
-            json.dump(public_key, public_key_file)
+            json.dump(public_key, public_key_fp)
 
-        with open("{}.prv".format(self.owner), "w") as private_key_file:
+        with open("{}.prv".format(self.owner), "w") as private_key_fp:
             private_key = {"n": self.n, "d": self.d}
-            json.dump(private_key, private_key_file)
+            json.dump(private_key, private_key_fp)
 
 
-def main():
+def main(argv):
     """Creates a GenKey object and export the keys"""
-    key_generator = GenKey(sys.argv[1])
+    key_generator = GenKey(argv[1])
     key_generator.export_keys()
 
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv)
