@@ -56,24 +56,24 @@ _Mainly_ (:smirk:) follows
 We use [pycrypto](https://pypi.org/project/pycrypto/) for it's AES cipher.
 
 ## How to run
-**Make sue you are running the right version of python (3), install dependencies
-and assigned the scripts execution permission first.**
+**Make sue you are running the right version of python (3) and install
+dependencies first.**
 
 Say our old friend Alice wants Bob to send her some file `message.msg` secretly.
 The first thing to do for her is to generate her RSA key pair:
 ```sh
-./genkey.py alice
+python genky.py alice
 ```
 You'll get the public and private key stored in file `alice.pub` and `alice.prv`
 respectively. Now Alice sends `alice.pub` to Bob and Bob should encrypt the file
 `message.msg`:
 ```sh
-./crypt.py -e alice.pub message.msg ciphertext.cip
+python crypt.py -e alice.pub message.msg ciphertext.cip
 ```
 Now Bob obtained the ciphertext file `ciphertext.cip` and send it back to Alice.
 Then Alice could recover the message by decrypting it:
 ```sh
-./crypt.py -d alice.prv ciphertext.cip message_from_bob.msg
+python crypt.py -d alice.prv ciphertext.cip message_from_bob.msg
 ```
 
 ## References
