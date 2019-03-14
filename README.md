@@ -24,22 +24,22 @@ format for convenience.
 ##### RSA public key file (*.pub)
 ```json
 {
-  "n": <RSA modula (Number)>,
-  "e": <RSA public exponent (Number)>
+  "n": "<RSA modula (Number)>",
+  "e": "<RSA public exponent (Number)>"
 }
 ```
 ##### RSA private key file (*.prv)
 ```json
 {
-  "n": <RSA modula (Number)>,
-  "d": <RSA private exponent (Number)>
+  "n": "<RSA modula (Number)>",
+  "d": "<RSA private exponent (Number)>"
 }
 ```
 ##### Ciphertext file
 ```json
 {
-  "key": <AES key ecrypted by RSA (Number)>,
-  "ciphertext": <Base64 encoded ciphertext (String)>
+  "key": "<AES key ecrypted by RSA (Number)>",
+  "ciphertext": "<Base64 encoded ciphertext (String)>"
 }
 ```
 
