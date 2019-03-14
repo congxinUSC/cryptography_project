@@ -26,4 +26,5 @@ details also refer to the following links:
 - [Carmichael totient funcition](https://en.wikipedia.org/wiki/Carmichael_function#%CE%BB(n)_divides_%CF%86(n))
 - [Euler's totient function](https://en.wikipedia.org/wiki/Euler%27s_totient_function)
 - [Public key selection](https://www.reddit.com/r/crypto/comments/6363di/how_do_computers_choose_the_rsa_value_for_e/)
+- [Modular multiplicative inverse](https://en.wikipedia.org/wiki/Modular_multiplicative_inverse)
 - [Extended Euclidean algorithm](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm)
