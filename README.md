@@ -53,7 +53,7 @@ you're only comfortable with [Python 2](https://docs.python.org/2/), there is
 _Mainly_ (:smirk:) follows
 [Google Python Style Guild](https://github.com/google/styleguide/blob/gh-pages/pyguide.md).
 #### Dependencies
-We use [pycrypto](https://pypi.org/project/pycrypto/) for it's AES cipher.
+We use [pycryptodome](https://pypi.org/project/pycryptodome/) for it's AES cipher.
 
 ## How to run
 **Make sue you are running the right version of python (3) and install
